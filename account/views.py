@@ -8,6 +8,7 @@ from .utils import TokenGenerator,generate_token
 from django.utils.encoding import force_bytes,force_str,DjangoUnicodeDecodeError
 from django.core.mail import EmailMessage
 from django.conf import settings
+from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 def signup(request):
@@ -62,9 +63,27 @@ class ActivateAccountView(View):
 
 
 def handlelogin(request):
+    if request.method=="POST":
+
+        username=request.POST['email']
+        userpassword=request.POST['pass1']
+        myuser=authenticate(username=username,password=userpassword)
+
+        if myuser is not None:
+            login(request,myuser)
+            messages.success(request,"Login Success")
+            return redirect('/')
+
+        else:
+            messages.error(request,"Invalid Credentials")
+            return redirect('/account/login')
+
+    return render(request,'account/login.html') 
     
-    return render(request,"account/login.html")
+
 
 
 def handlelogout(request):
+    logout(request)
+    messages.info(request,"Logout Success")
     return redirect('/account/login')
