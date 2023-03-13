@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 from django.contrib import messages
-from .private import email_id , email_password
-
+from Ecommerce import keys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
@@ -120,8 +119,8 @@ USE_TZ = True
 
 
 EMAIL_HOST = "smtp.gmail.com"
-EMAIL_HOST_USER = email_id
-EMAIL_HOST_PASSWORD = email_password
+EMAIL_HOST_USER = keys.email_id
+EMAIL_HOST_PASSWORD = keys.email_password
 EMAIL_PORT= 587
 EMAIL_USE_TLS= True 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend" 
