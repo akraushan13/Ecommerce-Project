@@ -127,7 +127,7 @@ def handlerequest(request):
 def profile(request):
     if not request.user.is_authenticated:
         messages.warning(request,"Login & Try Again")
-        return redirect('/auth/login')
+        return redirect('/account/login')
     currentuser=request.user.username
     items=Orders.objects.filter(email=currentuser)
     rid=""
